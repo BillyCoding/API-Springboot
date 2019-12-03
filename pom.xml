@@ -62,11 +62,11 @@
 		</dependency>
 		
 		<dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <version>1.18.10</version><!--$NO-MVN-MAN-VER$-->
-    <scope>provided</scope>
-</dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.2</version><!--$NO-MVN-MAN-VER$-->
+		    <scope>provided</scope>
+		</dependency>
 		
 	</dependencies>
 
