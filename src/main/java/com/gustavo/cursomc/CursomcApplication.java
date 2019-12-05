@@ -8,11 +8,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.gustavo.cursomc.domain.Categoria;
+import com.gustavo.cursomc.domain.Cep;
 import com.gustavo.cursomc.domain.Cidade;
+import com.gustavo.cursomc.domain.Cliente;
+import com.gustavo.cursomc.domain.Endereco;
 import com.gustavo.cursomc.domain.Estado;
 import com.gustavo.cursomc.domain.Produtos;
+import com.gustavo.cursomc.domain.enuns.TipoCliente;
 import com.gustavo.cursomc.repositories.CategoriaRepository;
+import com.gustavo.cursomc.repositories.CepRepository;
 import com.gustavo.cursomc.repositories.CidadeRepository;
+import com.gustavo.cursomc.repositories.ClienteRepository;
+import com.gustavo.cursomc.repositories.EnderecoRepository;
 import com.gustavo.cursomc.repositories.EstadoRepository;
 import com.gustavo.cursomc.repositories.ProdutosRepository;
 
@@ -27,6 +34,16 @@ public class CursomcApplication implements CommandLineRunner {
 	private CidadeRepository cidadeRepo;
 	@Autowired
 	private EstadoRepository estadoRepo;
+	
+	//Cliente
+	
+	@Autowired
+	private ClienteRepository clienteRepo;
+	@Autowired
+	private EnderecoRepository endeRepo;
+	@Autowired
+	private CepRepository cepRepo;
+	
 	
 	
 	public static void main(String[] args) {
@@ -59,6 +76,26 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		repo.saveAll(Arrays.asList(cat1, cat2));
 		prod.saveAll(Arrays.asList(pro1, pro2));
+		
+		// Cliente
+		
+		/*Cep cep1 = new Cep("06240060", "SP", "Jardim Elvira", "Osasco");
+		Cep cep2 = new Cep("06243060", "SP", "Bel Jardim", "Osasco");
+		Cliente cli1 = new Cliente(null, "Gustavo Ferreira", "gustavo.rocha.191066@gmail.com", "49891418812", TipoCliente.toEnum(1));
+		Endereco ende1 = new Endereco(null, cep1, "302","Casa 2", cli1);
+		Endereco ende2 = new Endereco(null, cep2, "1670","Casa 2", cli1);
+		
+		cep1.getEndereco().addAll(Arrays.asList(ende1));
+		cep2.getEndereco().addAll(Arrays.asList(ende2));
+		cli1.getEndereco().addAll(Arrays.asList(ende1, ende2));
+		
+		cepRepo.saveAll(Arrays.asList(cep1, cep2));
+		clienteRepo.saveAll(Arrays.asList(cli1));
+		endeRepo.saveAll(Arrays.asList(ende1, ende2));*/
+		
+		
+		
+		
 	}
 
 }
