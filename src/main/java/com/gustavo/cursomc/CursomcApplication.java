@@ -8,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.gustavo.cursomc.domain.Categoria;
-import com.gustavo.cursomc.domain.Cep;
 import com.gustavo.cursomc.domain.Cidade;
 import com.gustavo.cursomc.domain.Cliente;
 import com.gustavo.cursomc.domain.Endereco;
@@ -16,7 +15,6 @@ import com.gustavo.cursomc.domain.Estado;
 import com.gustavo.cursomc.domain.Produtos;
 import com.gustavo.cursomc.domain.enuns.TipoCliente;
 import com.gustavo.cursomc.repositories.CategoriaRepository;
-import com.gustavo.cursomc.repositories.CepRepository;
 import com.gustavo.cursomc.repositories.CidadeRepository;
 import com.gustavo.cursomc.repositories.ClienteRepository;
 import com.gustavo.cursomc.repositories.EnderecoRepository;
@@ -41,8 +39,6 @@ public class CursomcApplication implements CommandLineRunner {
 	private ClienteRepository clienteRepo;
 	@Autowired
 	private EnderecoRepository endeRepo;
-	@Autowired
-	private CepRepository cepRepo;
 	
 	
 	
@@ -77,22 +73,18 @@ public class CursomcApplication implements CommandLineRunner {
 		repo.saveAll(Arrays.asList(cat1, cat2));
 		prod.saveAll(Arrays.asList(pro1, pro2));
 		
-		// Cliente
-		
-		/*Cep cep1 = new Cep("06240060", "SP", "Jardim Elvira", "Osasco");
-		Cep cep2 = new Cep("06243060", "SP", "Bel Jardim", "Osasco");
-		Cliente cli1 = new Cliente(null, "Gustavo Ferreira", "gustavo.rocha.191066@gmail.com", "49891418812", TipoCliente.toEnum(1));
-		Endereco ende1 = new Endereco(null, cep1, "302","Casa 2", cli1);
-		Endereco ende2 = new Endereco(null, cep2, "1670","Casa 2", cli1);
-		
-		cep1.getEndereco().addAll(Arrays.asList(ende1));
-		cep2.getEndereco().addAll(Arrays.asList(ende2));
-		cli1.getEndereco().addAll(Arrays.asList(ende1, ende2));
-		
-		cepRepo.saveAll(Arrays.asList(cep1, cep2));
+		Cliente cli1 = new Cliente(null, "Cassia Ferreira", "cassia.rocha.240966@hotmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, cida1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, cida2);
+
+	
+		cli1.getEndereco().addAll(Arrays.asList(e1, e2));
+
 		clienteRepo.saveAll(Arrays.asList(cli1));
-		endeRepo.saveAll(Arrays.asList(ende1, ende2));*/
-		
+		endeRepo.saveAll(Arrays.asList(e1, e2));
 		
 		
 		
