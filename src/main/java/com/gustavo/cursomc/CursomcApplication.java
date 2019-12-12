@@ -13,11 +13,12 @@ import com.gustavo.cursomc.domain.Cidade;
 import com.gustavo.cursomc.domain.Cliente;
 import com.gustavo.cursomc.domain.Endereco;
 import com.gustavo.cursomc.domain.Estado;
+import com.gustavo.cursomc.domain.ItemPedido;
 import com.gustavo.cursomc.domain.Pagamento;
 import com.gustavo.cursomc.domain.PagamentoComBoleto;
 import com.gustavo.cursomc.domain.PagamentoComCartao;
 import com.gustavo.cursomc.domain.Pedido;
-import com.gustavo.cursomc.domain.Produtos;
+import com.gustavo.cursomc.domain.Produto;
 import com.gustavo.cursomc.domain.enuns.EstadoPagamento;
 import com.gustavo.cursomc.domain.enuns.TipoCliente;
 import com.gustavo.cursomc.repositories.CategoriaRepository;
@@ -28,6 +29,7 @@ import com.gustavo.cursomc.repositories.EstadoRepository;
 import com.gustavo.cursomc.repositories.PagamentoRepository;
 import com.gustavo.cursomc.repositories.PedidoRepository;
 import com.gustavo.cursomc.repositories.ProdutosRepository;
+import com.gustavo.cursomc.repositories.itemPedidoRepository;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
@@ -48,12 +50,15 @@ public class CursomcApplication implements CommandLineRunner {
 	@Autowired
 	private EnderecoRepository endeRepo;
 	
+	
 	//Pedido
 	
 	@Autowired
 	private PedidoRepository pedidoRepo;
 	@Autowired 
 	private PagamentoRepository pagamentoRepo;
+	@Autowired
+	private itemPedidoRepository itemPedidoRepo;
 	
 	
 	public static void main(String[] args) {
@@ -65,8 +70,9 @@ public class CursomcApplication implements CommandLineRunner {
 
 		Categoria cat1 = new Categoria(null, "Notebook");
 		Categoria cat2 = new Categoria(null, "Smartphone");
-		Produtos pro1 = new Produtos(null, "IdeaPad 320", 1700.00);
-		Produtos pro2 = new Produtos(null, "Moto G6 Indigo", 1250.00);
+		Produto pro1 = new Produto(null, "IdeaPad 320", 1700.00);
+		Produto pro2 = new Produto(null, "Moto G6 Indigo", 1250.00);
+		Produto pro3 = new Produto(null, "Moto G6 Plus", 1450.00);
 		Estado esta1 = new Estado(null, "SãoPaulo");
 		Cidade cida1 = new Cidade(null, "Osasco", esta1);
 		Cidade cida2 = new Cidade(null, "Barueri", esta1);
@@ -74,10 +80,11 @@ public class CursomcApplication implements CommandLineRunner {
 		Cidade cida4 = new Cidade(null, "Carapicuíba", esta1);
 		
 		cat1.getProdutos().addAll(Arrays.asList(pro1));
-		cat2.getProdutos().addAll(Arrays.asList(pro2));
+		cat2.getProdutos().addAll(Arrays.asList(pro2,pro3));
 		
 		pro1.getCategorias().addAll(Arrays.asList(cat1));
 		pro2.getCategorias().addAll(Arrays.asList(cat2));
+		pro3.getCategorias().addAll(Arrays.asList(cat2));
 		
 		esta1.getCidade().addAll(Arrays.asList(cida1));
 		
@@ -85,7 +92,7 @@ public class CursomcApplication implements CommandLineRunner {
 		cidadeRepo.saveAll(Arrays.asList(cida1, cida2, cida3, cida4));
 		
 		repo.saveAll(Arrays.asList(cat1, cat2));
-		prod.saveAll(Arrays.asList(pro1, pro2));
+		prod.saveAll(Arrays.asList(pro1, pro2, pro3));
 		
 		Cliente cli1 = new Cliente(null, "Cassia Ferreira", "cassia.rocha.240966@hotmail.com", "36378912377", TipoCliente.PESSOAFISICA);
 
@@ -117,6 +124,19 @@ public class CursomcApplication implements CommandLineRunner {
 
 		pedidoRepo.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepo.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		
+		ItemPedido ip1 = new ItemPedido(ped1, pro1, 0.00, 1, pro1.getPreco());
+		ItemPedido ip2 = new ItemPedido(ped1, pro3, 0.00, 2, pro3.getPreco());
+		ItemPedido ip3 = new ItemPedido(ped2, pro2, 100.00, 1, pro2.getPreco());
+
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+
+		pro1.getItens().addAll(Arrays.asList(ip1));
+		pro2.getItens().addAll(Arrays.asList(ip3));
+
+		itemPedidoRepo.saveAll(Arrays.asList(ip1, ip2, ip3));
 		
 	}
 

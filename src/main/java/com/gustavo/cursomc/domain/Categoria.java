@@ -25,7 +25,7 @@ public @Data class Categoria implements Serializable{
 		
 		@JsonBackReference
 		@ManyToMany(mappedBy="categorias")
-		private List<Produtos> produtos = new ArrayList<>(); 
+		private List<Produto> produtos = new ArrayList<>(); 
 
 		
 		public Categoria() {}

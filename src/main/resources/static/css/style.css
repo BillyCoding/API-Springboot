@@ -58,7 +58,8 @@ Table OF Contents
 body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  color: #333;
+  background-color: #333;
+  color:#eee;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -620,9 +621,8 @@ textarea.input {
 ===========================================================*/
 
 #navigation {
-  background: #FFF;
-  border-bottom: 2px solid #E4E7ED;
-  border-top: 3px solid #0c8994;
+  background: #ddd;
+  border-bottom: 3px solid #777;
 }
 
 /*----------------------------*\
