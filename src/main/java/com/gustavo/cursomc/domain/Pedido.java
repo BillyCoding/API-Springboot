@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -24,14 +24,15 @@ public @Data class Pedido implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY )
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Date instante;	
-	
-	 @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
+
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
+	private Date instante;
+
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
 	private Pagamento pagamento;
-	
-	@JsonBackReference
+
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
@@ -39,10 +40,9 @@ public @Data class Pedido implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="endereco_entrega")
 	private Endereco enderecoDeEntrega;
-	
-	@OneToMany(mappedBy = "id.pedido")
-	private Set<ItemPedido> itens = new HashSet<>();
-	
+
+	@OneToMany(mappedBy="id.pedido")
+	private Set<ItemPedido> itensDoPedido = new HashSet<>();
 	
 	public Pedido() {}
 
@@ -81,8 +81,7 @@ public @Data class Pedido implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	
-	
+
 	
 	
 }

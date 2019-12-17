@@ -95,16 +95,19 @@ public class CursomcApplication implements CommandLineRunner {
 		prod.saveAll(Arrays.asList(pro1, pro2, pro3));
 		
 		Cliente cli1 = new Cliente(null, "Cassia Ferreira", "cassia.rocha.240966@hotmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		Cliente cli2 = new Cliente(null, "Logitech", "logitech@hotmail.com", "32378917376", TipoCliente.PESSOAJURIDICA);
 
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+		cli2.getTelefones().addAll(Arrays.asList("33227363", "98393383"));
 
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, cida1);
-		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, cida2);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli2, cida2);
 
 	
-		cli1.getEndereco().addAll(Arrays.asList(e1, e2));
+		cli1.getEndereco().addAll(Arrays.asList(e1));
+		cli2.getEndereco().addAll(Arrays.asList(e2));
 
-		clienteRepo.saveAll(Arrays.asList(cli1));
+		clienteRepo.saveAll(Arrays.asList(cli1,cli2));
 		endeRepo.saveAll(Arrays.asList(e1, e2));
 		
 		// Pedido
@@ -112,7 +115,7 @@ public class CursomcApplication implements CommandLineRunner {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
-		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli2, e2);
 
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);
@@ -126,12 +129,12 @@ public class CursomcApplication implements CommandLineRunner {
 		pagamentoRepo.saveAll(Arrays.asList(pagto1, pagto2));
 		
 		
-		ItemPedido ip1 = new ItemPedido(ped1, pro1, 0.00, 1, pro1.getPreco());
-		ItemPedido ip2 = new ItemPedido(ped1, pro3, 0.00, 2, pro3.getPreco());
-		ItemPedido ip3 = new ItemPedido(ped2, pro2, 100.00, 1, pro2.getPreco());
+		ItemPedido ip1 = new ItemPedido(ped1, pro1, 0.00, 1, 1700.00);
+		ItemPedido ip2 = new ItemPedido(ped1, pro3, 0.00, 2, 1450.00);
+		ItemPedido ip3 = new ItemPedido(ped2, pro2, 100.00, 1, 1250.00);
 
-		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
-		ped2.getItens().addAll(Arrays.asList(ip3));
+		ped1.getItensDoPedido().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItensDoPedido().addAll(Arrays.asList(ip3));
 
 		pro1.getItens().addAll(Arrays.asList(ip1));
 		pro2.getItens().addAll(Arrays.asList(ip3));
