@@ -21,7 +21,7 @@ public class ClienteResource {
 	
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<Cliente> buscar(@PathVariable Integer id) {
 		
 		Cliente obj = service.Buscar(id);
 		return ResponseEntity.ok(obj);

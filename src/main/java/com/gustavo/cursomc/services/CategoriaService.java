@@ -24,5 +24,11 @@ public class CategoriaService {
 		obj.setIdCat(null);
 		return repo.save(obj);
 	}
+	
+	public Categoria update (Categoria obj)
+	{
+		Buscar(obj.getIdCat());
+		return repo.save(obj);
+	}
 }
 

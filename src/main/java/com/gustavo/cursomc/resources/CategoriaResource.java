@@ -3,8 +3,6 @@ package com.gustavo.cursomc.resources;
 
 import java.net.URI;
 
-import javax.servlet.Servlet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +25,7 @@ public class CategoriaResource {
 	
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<Categoria> buscar(@PathVariable Integer id) {
 		
 		Categoria obj = service.Buscar(id);
 		return ResponseEntity.ok(obj);
@@ -40,6 +38,14 @@ public class CategoriaResource {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdCat()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id)
+	{
+		obj.setIdCat(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
 	}
 
 }
