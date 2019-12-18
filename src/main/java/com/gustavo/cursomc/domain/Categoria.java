@@ -20,8 +20,8 @@ public @Data class Categoria implements Serializable{
 		
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
-		private Integer IdCat;
-		private String NomeCat;
+		private Integer id;
+		private String nome;
 		
 		@JsonIgnore
 		@ManyToMany(mappedBy="categorias")
@@ -30,10 +30,10 @@ public @Data class Categoria implements Serializable{
 		
 		public Categoria() {}
 		
-		public Categoria(Integer idCat, String nomeCat) {
+		public Categoria(Integer id, String nome) {
 			super();
-			IdCat = idCat;
-			NomeCat = nomeCat;
+			this.id = id;
+			this.nome = nome;
 		}
 
 		
